@@ -10,6 +10,6 @@
 
 //test
 
-void fontx_init();  // 初期化関数
-GSize fontx_draw(GContext *ctx, GRect rect, char *text );
-void charcter_draw(GContext *ctx, GRect rect,  GPoint cr_point, uint16_t code );
+void jptext_init();  // 初期化関数
+GSize jptext_text_draw(GContext *ctx, GRect rect, char *text );
+//void charcter_draw(GContext *ctx, GRect rect,  GPoint cr_point, uint16_t code );

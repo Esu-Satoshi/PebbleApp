@@ -1,12 +1,12 @@
 #include <pebble.h>
 #include "fontxLayer.h"
-#include "fontx.h"
+#include "jptext_draw.h"
 
 ;
 // updateイベント
 static void layer_update_proc(FontxLayer *fontx_layer, GContext *ctx)
 {
-    //APP_LOG(APP_LOG_LEVEL_DEBUG, "-- layer_update_proc()");
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "-- layer_update_proc()");
 
     FontxLayerData *fontx_data = (FontxLayerData *)layer_get_data(fontx_layer);
     GRect bounds = layer_get_bounds(fontx_layer);
@@ -15,20 +15,20 @@ static void layer_update_proc(FontxLayer *fontx_layer, GContext *ctx)
     graphics_fill_rect(ctx, bounds, 0, GCornerNone);
     graphics_context_set_stroke_color(ctx, fontx_data->fg_color);
     
+    //APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", fontx_data->text);
     
-   // APP_LOG(APP_LOG_LEVEL_DEBUG, fontx_layer->text);
-
-    fontx_draw(ctx, bounds, fontx_data->text );
+    jptext_text_draw(ctx, bounds, fontx_data->text );
     
-    //APP_LOG(APP_LOG_LEVEL_DEBUG, "-- layer_update_proc End");
+    
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "-- layer_update_proc End");
 }
 
 //====================================================================
 FontxLayer* fontx_layer_create (GRect frame)
 {
-    //APP_LOG(APP_LOG_LEVEL_DEBUG, "-- fontx_layer_create()");
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "-- fontx_layer_create()");
 
-    fontx_init(); // fontxの初期化を行う
+    jptext_init(); // fontxの初期化を行う
     
     FontxLayer *fontx_layer = layer_create_with_data(frame, sizeof(FontxLayerData));
     
@@ -40,11 +40,14 @@ FontxLayer* fontx_layer_create (GRect frame)
     layer_set_update_proc(fontx_layer, layer_update_proc);
     layer_mark_dirty(fontx_layer);
 
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "fontx_layer_create() --");
     return fontx_layer;
 };
 
 void fontx_layer_destroy(FontxLayer *fontx_layer)
 {
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "-- fontx_layer_destroy()");
+
     FontxLayerData *fontx_data = (FontxLayerData *)layer_get_data(fontx_layer);
     
     if(fontx_data->text != 0)
@@ -62,8 +65,10 @@ void fontx_layer_destroy(FontxLayer *fontx_layer)
  */
 GSize fontx_layer_get_content_size(FontxLayer *fontx_layer)
 {  
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "-- fontx_layer_get_content_size()");
+
     FontxLayerData *fontx_data = (FontxLayerData *)layer_get_data(fontx_layer);
-    return fontx_draw(0, layer_get_bounds(fontx_layer), fontx_data->text );
+    return jptext_text_draw(0, layer_get_bounds(fontx_layer), fontx_data->text );
 };
 
 Layer* fontx_layer_get_layer (FontxLayer *fontx_layer)

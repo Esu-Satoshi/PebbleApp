@@ -9,7 +9,7 @@
         "media": [
             {
                 "file": "data/utf-8.txt",
-                "name": "TEXT_DATA",
+                "name": "SAMPLE",
                 "type": "raw"
             },
             {
