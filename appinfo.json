@@ -1,0 +1,29 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "esu.sinta@gmail.com",
+    "longName": "fontxLayer",
+    "resources": {
+        "media": [
+            {
+                "file": "data/shift_jis.txt",
+                "name": "SAMPLE",
+                "type": "raw"
+            },
+            {
+                "file": "data/MISAKI.FNT",
+                "name": "ZENKAKU_FONT",
+                "type": "raw"
+            }
+        ]
+    },
+    "shortName": "fontxLayer",
+    "uuid": "1fcde450-d995-4929-90a1-03a6ba7a1068",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
