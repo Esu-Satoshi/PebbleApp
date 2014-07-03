@@ -8,7 +8,7 @@
 //    4. 文字コードはShift-jis(utf8に対応したいが、その場合fontxではなくなる)
 //=============================================================================
 
-
+//test
 
 void fontx_init();  // 初期化関数
 GSize fontx_draw(GContext *ctx, GRect rect, char *text );
