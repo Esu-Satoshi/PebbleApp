@@ -8,13 +8,18 @@
     "resources": {
         "media": [
             {
-                "file": "data/shift_jis.txt",
-                "name": "SAMPLE",
+                "file": "data/utf-8.txt",
+                "name": "TEXT_DATA",
                 "type": "raw"
             },
             {
-                "file": "data/MISAKI.FNT",
-                "name": "ZENKAKU_FONT",
+                "file": "data/UCSCODE.TBL",
+                "name": "UCS2_CODE_TABLE",
+                "type": "raw"
+            },
+            {
+                "file": "data/UCS2.FNT",
+                "name": "UCS2_FONT_BITMAP",
                 "type": "raw"
             }
         ]

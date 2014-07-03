@@ -1,0 +1,10 @@
+テスト
+airwhiteさんのコードを元に文字の拡大を頑張ってみた。
+ここから下はスクロールさせるためのテストコード
+--------
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+あいうえおかきくけこさしすせそたちつてと
+
+4月7日（木曜）
+End
