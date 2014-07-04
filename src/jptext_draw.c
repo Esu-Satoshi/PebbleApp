@@ -85,6 +85,62 @@ uint16_t char_utf8_to_ucs2(wchar* dest, const char* src)
  */
 wchar char_ucs2_to_fontpos(wchar code)
 {
+    // 二分岐探索での検索を試みる。
+    // データの持ち方は以下の通り
+    /*
+    {
+        uint16_t Tnum
+        {
+            uint16_t start_code  // ブロックの開始コード(UCS2コード)
+            uint16_t end_seq     // ブロック終了位置のフォント累積数
+        }Block[Tnum]
+    }
+    */ 
+    //uint16_t i, cnt;
+    //cnt = 0;
+
+    uint16_t start = 0;	// 領域の始まりの文字コード
+    uint16_t seq = 0, pre_seq = 0;	// 領域の終わりの文字コード
+    uint8_t n[4];
+
+    uint16_t min = 0;                 // 検索範囲 mini側
+    uint16_t max = fontInfo.Tnum;     // 検索範囲 max側
+    uint16_t pos = (min + max) / 2;   // 探索位置
+    
+    while ((max-1) > min)
+    {
+        pos = (min + max) / 2;
+
+        // 探査位置のリソースを取得
+        resource_load_byte_range(FONT_TABLE, pos * 4 + 2, n, 4);
+        start = n[1] * 256 + n[0];
+        seq = n[3] * 256 + n[2];
+        
+        if (start < code) min = pos ;
+        else if (start > code) max = pos ;
+        else { min = pos; break ; }
+    }
+    
+    // 前のブロック位置情報を取得する
+    pre_seq = 0;
+    if( pos > 0)
+    {
+        resource_load_byte_range(FONT_TABLE, (pos-1) * 4 + 2, n, 4);
+        //pre_start = n[1] * 256 + n[0];
+        pre_seq = n[3] * 256 + n[2];
+    }
+    
+    // 文字コードが本当にブロック内の範囲に収まっているか確認
+    if( code > start + (seq - pre_seq -1) )
+    {
+        return 0;
+    }
+    
+    return pre_seq + ( code - start ) ;
+}
+
+wchar __char_ucs2_to_fontpos(wchar code)
+{
     uint16_t i, pos=0, cnt;
     cnt = 0;
 
